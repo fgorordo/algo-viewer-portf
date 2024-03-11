@@ -6,11 +6,26 @@
     4. If element not found, return -1.
 */
 
+import { sleep } from "..";
 
-export const linearSearch = (arr: Number[], target: Number): Number | -1 => {
-    
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i] === target) return i;
+
+interface LinearSearchParams {
+    setCurrentIndex: (i: number) => void;
+    setAlgorithmResult: (i: number) => void;
+    array: number[];
+    target: number;
+}
+
+export const linearSearch = async ({setCurrentIndex, setAlgorithmResult,array, target}: LinearSearchParams) => {
+    for (let i = 0; i < array.length; i++) {
+        await sleep(300);
+        setCurrentIndex(i);
+        if (array[i] === target) {
+            setAlgorithmResult(array[i]);
+            return array[i];
+        }
     }
+
+    setAlgorithmResult(-1);
     return -1;
-}; 
+};

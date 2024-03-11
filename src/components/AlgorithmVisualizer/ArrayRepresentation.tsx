@@ -1,15 +1,14 @@
 interface Props {
-    array: number[]
+    array: number[] | undefined;
     activePointer: number | undefined
     algorithmResolutionValue: number | undefined;
 }
 
 export const ArrayRepresentation = ({ array, activePointer, algorithmResolutionValue}: Props) => {
-    console.log(array.length)
     return (
         <div className='flex gap-4 items-end justify-center'>
             {
-                array.map((element, index) => {
+                array!.map((element, index) => {
                     return (
                         <div className="flex flex-col items-center" key={index}>
                             <div

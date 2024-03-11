@@ -1,7 +1,7 @@
 import { ArrayRepresentation } from ".";
 
 interface Props {
-  sortedArray: number[]
+  sortedArray: number[] | undefined;
   activePointer: number | undefined;
   algorithmResolutionValue: number | undefined;
 }
