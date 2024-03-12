@@ -9,7 +9,6 @@ export const InsertionSortPage = () => {
     currentPointer,
     runAlgorithm,
     runInsertionSort,
-    numberToInsert,
     setInitialValues,
     targetArray,
   } = useSortAlgorithms();

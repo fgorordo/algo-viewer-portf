@@ -1,25 +1,40 @@
+import { Dispatch } from "react";
 import { sleep } from "..";
 
 interface QuickSortParams {
-    setCurrentIndex: (i: number) => void;
-    array: number[]
+    setPivotElement: Dispatch<React.SetStateAction<number | undefined>>;
+    setCurrentIndex: Dispatch<React.SetStateAction<number | undefined>>;
+    setRightArray: Dispatch<React.SetStateAction<number[]>>;
+    setLeftArray: Dispatch<React.SetStateAction<number[]>>;
+
 }
 
-export const quickSort: any = async ({setCurrentIndex,array}:QuickSortParams) => {
-    // 1. Find the pivot element
-    let pivot = array[array.length - 1];
-    let leftArray:number[] = [];
-    let rightArray:number[] = [];
+export const quickSort = async (arr: number[], {setPivotElement, setRightArray, setLeftArray, setCurrentIndex}:QuickSortParams): Promise<number[]> => {
+    if (arr.length < 2) {
+        setRightArray([]);
+        setLeftArray([]);
+        setPivotElement(undefined);
+        setCurrentIndex(undefined);
+        return arr
+    };
 
-    for(let i = 0; i < array.length -1; i++) {
-        setCurrentIndex(i);
-        await sleep(500);
-        if(array[i] < pivot) {
-            leftArray.push(array[i]);
+    let pivot = arr[arr.length - 1];
+    setPivotElement(pivot);
+    let left: number[] = [];
+    let right: number[] = [];
+
+    for (let i = 0; i < arr.length - 1; i++) {
+        setCurrentIndex(i)
+        await sleep(100)
+        if (arr[i] < pivot) {
+            left.push(arr[i]);
+            setLeftArray(left)
         } else {
-            rightArray.push(array[i]);
+            right.push(arr[i]);
+            setRightArray(right)
         }
     }
-
-    return [...quickSort(leftArray), pivot, ...quickSort(rightArray)];
-}
+    
+    
+    return [...await quickSort(left,{setPivotElement, setRightArray, setLeftArray, setCurrentIndex}), pivot, ...await quickSort(right,{setPivotElement, setRightArray, setLeftArray, setCurrentIndex})];
+};

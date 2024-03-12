@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { bubbleSort, insertionSort, quickSort, sleep } from "../helpers";
+import { bubbleSort, insertionSort, sleep } from "../helpers";
 
 interface SortAlgorithmState {
     targetArray: number[];
@@ -70,15 +70,6 @@ export const useSortAlgorithms = () => {
         return await insertionSort({setCurrentIndex, array});
     };
 
-    const runQuickSort = async (array:number[]) => {
-        let res  = await quickSort({setCurrentIndex, array});
-        setSortAlgorithmState({
-            ...sortAlgorithmState,
-            targetArray: res,
-        })
-        return 
-    };
-
 
 
     return {
@@ -87,6 +78,5 @@ export const useSortAlgorithms = () => {
         runAlgorithm,
         runBubbleSort,
         runInsertionSort,
-        runQuickSort,
     }
 };
